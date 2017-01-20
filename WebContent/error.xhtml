@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<!--  In both AJAX and non-AJAX, you can get access to the exception informations via <b>\#{pfExceptionHandler}</b>.
+                Available properties: exception, type, message, stackTrace, formattedStackTrace, timestamp, formattedTimestamp <br/> -->
+<style type="text/css">
+body {
+	background-color: e0e0e0;
+}
+
+.panelGridCenter {
+	margin: 0 auto;
+}
+
+.text {
+	color: #7D7D7D;
+	font-size: 32px;
+	font-variant: normal;
+}
+
+.textSitno {
+	color: #7D7D7D;
+	font-size: 14px;
+	font-variant: normal;
+}
+
+.textException {
+	color: #7D7D7D;
+	font-size: 17px;
+	font-variant: normal;
+	color: #7D7D7D;
+}
+
+.exceptionContainer {
+	background-color: white;
+	border-radius: 10px;
+}
+</style>
+<body>
+	<p:panelGrid columns="2" styleClass="panelGridCenter">
+		<p:graphicImage value="/resources/slike/error.png" />
+
+		<p:panelGrid columns="1" columnClasses="text">
+			<h:outputText value="Ispričavamo se..." />
+			<h:outputText value="Niste Vi. " />
+			<h:outputText value="Mi smo." />
+
+			<h:outputText styleClass="textSitno" value="Došlo je do greške." />
+
+			
+
+		</p:panelGrid>
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="textException"
+		styleClass="exceptionContainer panelGridCenter">
+		<p:outputLabel value="#{pfExceptionHandler.formattedTimestamp}" />
+
+		<p:outputLabel value="#{pfExceptionHandler.formattedStackTrace}"
+			escape="false" />
+	</p:panelGrid>
+</body>
+</html>

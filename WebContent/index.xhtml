@@ -1,0 +1,89 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:include src="head.xhtml" />
+
+<h:body>
+
+	<h:form id="forma">
+
+		<p:growl id="msg" showDetail="true" life="3000" autoUpdate="true" />
+
+		<p:tabView>
+		
+		<p:tab title="Jedinica mjere">
+		<p:panelGrid id="panelGrid" columns="2"
+					rendered="#{jedinicaMjereMb.jedinicaMjere != null}">
+					<h:outputText value="Naziv:" />
+
+					<p:inputText value="#{jedinicaMjereMb.jedinicaMjere.naziv}" />
+
+					<h:outputText value="Kratki naziv" />
+
+					<p:inputText value="#{jedinicaMjereMb.jedinicaMjere.kratkiNaziv}" />
+
+				</p:panelGrid>
+
+				<p:commandButton actionListener="#{jedinicaMjereMb.spremi}" value="Spremi"
+					icon="ui-icon-disk" update="forma" ajax="false" />
+
+				<p:commandButton actionListener="#{jedinicaMjereMb.novi}" value="Novi"
+					icon="ui-icon-plus" update="forma" ajax="false" />
+
+				<p:dataList id="jedinicaMj" value="#{jedinicaMjereMb.jedinicaMjera}" var="v"
+					type="ordered" emptyMessage="Trenutno nema podataka">
+					<p:commandButton action="#{jedinicaMjereMb.obrisi(v)}" value="Obriši"
+						icon="ui-icon-close" update="jedinicaMj" ajax="false" />
+					<p:commandButton action="#{jedinicaMjereMb.setJedinicaMjere(v)}"
+						icon="ui-icon-arrow-1-n" ajax="false" update="jedinicaMj" />
+
+			Naziv: #{v.naziv} 
+			Barkod: #{v.kratkiNaziv}
+				
+		</p:dataList>
+		</p:tab>
+			<p:tab title="Artikl">
+				<p:panelGrid id="panel" columns="2"
+					rendered="#{artiklMb.artikl != null}">
+					<h:outputText value="Naziv:" />
+
+					<p:inputText value="#{artiklMb.artikl.naziv}" />
+
+					<h:outputText value="Barkod:" />
+
+					<p:inputText value="#{artiklMb.artikl.barkod}" />
+					
+					<h:outputText value="Jedinice mjera" />
+					
+					<p:selectOneMenu value="#{artiklMb.odabranaJedinicaMjere}">
+						<f:selectItems value="#{artiklMb.list}"></f:selectItems>
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+
+				<p:commandButton actionListener="#{artiklMb.spremi}" value="Spremi"
+					icon="ui-icon-disk" update="forma" ajax="false" />
+
+				<p:commandButton actionListener="#{artiklMb.novi}" value="Novi"
+					icon="ui-icon-plus" update="forma" ajax="false" />
+
+				<p:dataList id="artikli" value="#{artiklMb.artikli}" var="v"
+					type="ordered" emptyMessage="Trenutno nema podataka">
+					<p:commandButton action="#{artiklMb.obrisi(v)}" value="Obriši"
+						icon="ui-icon-close" update="artikli" ajax="false" />
+					<p:commandButton action="#{artiklMb.setArtikl(v)}"
+						icon="ui-icon-arrow-1-n" ajax="false" update="artikli" />
+
+			Naziv: #{v.naziv} 
+			Barkod: #{v.barkod}
+			Jedinica mjere: #{v.jedinicaMjere.naziv}
+				
+		</p:dataList>
+			</p:tab>
+		</p:tabView>
+	</h:form>
+</h:body>
+</html>
